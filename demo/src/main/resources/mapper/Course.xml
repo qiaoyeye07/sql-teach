@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.CourseMapper">
+
+    <select id="selectCourse" resultType="com.example.demo.entity.Course">
+        select * from course order by Cno
+    </select>
+
+    <select id="selectCourseByCondition" resultType="com.example.demo.entity.Course">
+        select * from course
+        <where>
+            <!-- 课程名模糊匹配 -->
+            <if test="cname != null and cname != ''">
+                and Cname like concat('%', #{cname}, '%')
+            </if>
+            <!-- 教师名模糊匹配 -->
+            <if test="tname != null and tname != ''">
+                and Tname like concat('%', #{tname}, '%')
+            </if>
+        </where>
+        order by Cno
+    </select>
+</mapper>
